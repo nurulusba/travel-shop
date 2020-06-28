@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Axios from 'axios';
-import { Icon, Row } from 'antd';
+import { Icon, Row, Col, Card } from 'antd';
+import Meta from 'antd/lib/card/Meta';
+import ImageSlider from '../../utils/ImageSlider';
 
 function LandingPage() { 
     const [ Products, setProducts ] = useState([])
@@ -16,9 +18,26 @@ function LandingPage() {
                   alert("Failed to fetch product datas");
               }
           })
-    }, []);
+    }, []); 
 
-    const 
+    const renderCards = Products.map((product, index) => {
+        return <Col ig={6} md={8} xs={24}>
+           <Card 
+              hoverable={true}
+              cover={ <ImageSlider images={product.images} /> } // we put the product images into the image slider 
+           
+           >
+
+            <Meta
+               title={product.title}    
+               description={`$${product.price}`}     
+            />
+
+           </Card>
+
+        </Col>
+    });
+
     return (
         <div style={{ width: '75%', margin: '3rem auto' }}>
 
